@@ -20,5 +20,6 @@ function setTimer() {
 
 //listen for click event to start game
 startQuiz.addEventListener('click', function() {
-    setTimer();
+  
+  setTimer();
 })
