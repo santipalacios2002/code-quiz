@@ -1,7 +1,8 @@
 //Select time timer element
 var timeEl = document.querySelector('#seconds');
-var startQuiz = document.querySelector('#start-quiz');
-console.log(startQuiz);
+var startQuizBtn = document.querySelector('#start-quiz');
+var questionEl = document.querySelector('#question')
+console.log(startQuizBtn);
 console.log(timeEl);
 var secondsLeft = 10;
 
@@ -19,7 +20,9 @@ function setTimer() {
 }
 
 //listen for click event to start game
-startQuiz.addEventListener('click', function() {
-  
+startQuizBtn.addEventListener('click', function() {
+  questionEl.textContent = 'Commonly used data types DO NOT include:'
+  document.getElementById("introduction").hidden = true;
+  document.getElementById("startBtn").hidden = true;
   setTimer();
 })
