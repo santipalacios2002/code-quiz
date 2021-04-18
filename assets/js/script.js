@@ -1,14 +1,18 @@
 //Select time timer element
 var timeEl = document.querySelector('#seconds');
 var startQuizBtn = document.querySelector('#start-quiz');
+var choiceBtn = document.querySelectorAll('.box');
 var questionEl = document.querySelector('#question');
 var choiceOneEl = document.querySelector('#one');
 var choiceTwoEl = document.querySelector('#two');
 var choiceThreeEl = document.querySelector('#three');
 var choiceFourEl = document.querySelector('#four');
 var choiceList = document.querySelector('.container');
+var finalScore = document.querySelector('#finalScore');
+var score =document.querySelector('#score');
 var correctAudio = new Audio('./assets/audio/correct.mp3');
 var wrongAudio = new Audio('./assets/audio/wrong.mp3');
+var questionIndex = 0; //initializes question index
 
 //for later to play the ding =  correctAudio.play();
 
@@ -16,7 +20,7 @@ var wrongAudio = new Audio('./assets/audio/wrong.mp3');
 console.log(choiceList)
 
 var quiz = [{
-    question: 'Quito is the capital of ______',
+    question: 'Quito is the capital of which country?',
     answer: 'Ecuador',
     choiceOne: 'USA',
     choiceTwo: 'Guatemala',
@@ -37,12 +41,12 @@ var quiz = [{
     choiceThree: 'London',
     choiceFour: 'Edinburgh'
 }, {
-    question: 'What is the smallest city in the world?',
+    question: 'What is the smallest country in the world?',
     answer: 'Vatican City',
     choiceOne: 'Monaco',
     choiceTwo: 'Switzerland',
     choiceThree: 'Liechtenstein',
-    choiceFour: 'Mexico' 
+    choiceFour: 'Vatican City' 
 }, {
     question: 'What is Earth\'s largest continent?',
     answer: 'Asia',
@@ -56,7 +60,7 @@ var quiz = [{
 
 console.log(startQuizBtn);
 console.log(timeEl);
-var secondsLeft = 10;
+var secondsLeft = 50;
 
 //set timer
 function setTimer() {
@@ -71,16 +75,75 @@ function setTimer() {
   }, 1000);
 }
 
+
+
 //listen for click event to start game
 startQuizBtn.addEventListener('click', function() {
-  questionEl.textContent = quiz[0].question;
-  document.getElementById("introduction").hidden = true;
-  document.getElementById("startBtn").hidden = true;
-  choiceList.removeAttribute('hidden');
-  choiceOneEl.textContent = quiz[0].choiceOne;
-  choiceTwoEl.textContent = quiz[0].choiceTwo;
-  choiceThreeEl.textContent = quiz[0].choiceThree;
-  choiceFourEl.textContent = quiz[0].choiceFour;
-  setTimer();
-
+    document.getElementById("introduction").hidden = true;
+    document.getElementById("startBtn").hidden = true;
+    choiceList.removeAttribute('hidden');
+    setTimer();
+    question();
 })
+
+choiceBtn[0].addEventListener('click', function() {
+    console.log('button 1 clicked')
+    if (quiz[questionIndex].choiceOne == quiz[questionIndex].answer) {
+        console.log(`correct answer`)
+        correctAudio.play();
+    } else {
+        wrongAudio.play();
+    }
+    questionIndex++;
+    question();
+})
+choiceBtn[1].addEventListener('click', function() {
+    console.log('button 2 clicked')
+    if (quiz[questionIndex].choiceTwo == quiz[questionIndex].answer) {
+        console.log(`correct answer`)
+        correctAudio.play();
+    } else {
+        wrongAudio.play();
+    }
+    questionIndex++;
+    question();
+})
+choiceBtn[2].addEventListener('click', function() {
+    console.log('button 3 clicked')
+    if (quiz[questionIndex].choiceThree == quiz[questionIndex].answer) {
+        console.log(`correct answer`)
+        correctAudio.play();
+    } else {
+        wrongAudio.play();
+    }
+    questionIndex++;
+    question();
+})
+choiceBtn[3].addEventListener('click', function() {
+    console.log('button 4 clicked')
+    if (quiz[questionIndex].choiceFour == quiz[questionIndex].answer) {
+        console.log(`correct answer`)
+        correctAudio.play();
+    } else {
+        wrongAudio.play();
+    }
+    questionIndex++;
+    question();
+})
+
+
+function question() {
+    if (questionIndex < 5) {
+        questionEl.textContent = quiz[questionIndex].question;
+        choiceOneEl.textContent = quiz[questionIndex].choiceOne;
+        choiceTwoEl.textContent = quiz[questionIndex].choiceTwo;
+        choiceThreeEl.textContent = quiz[questionIndex].choiceThree;
+        choiceFourEl.textContent = quiz[questionIndex].choiceFour;
+    } else {
+        choiceList.setAttribute('hidden', true);
+        finalScore.removeAttribute('hidden');
+        questionEl.textContent = 'ALL DONE!';
+        score.textContent = secondsLeft;
+        clearInterval();
+    }
+}
