@@ -13,11 +13,8 @@ var score =document.querySelector('#score');
 var correctAudio = new Audio('./assets/audio/correct.mp3');
 var wrongAudio = new Audio('./assets/audio/wrong.mp3');
 var questionIndex = 0; //initializes question index
+var secondsLeft = 50;
 
-//for later to play the ding =  correctAudio.play();
-
-
-console.log(choiceList)
 
 var quiz = [{
     question: 'Quito is the capital of which country?',
@@ -56,25 +53,6 @@ var quiz = [{
     choiceFour: 'Europe' 
 }    
 ]
-
-
-console.log(startQuizBtn);
-console.log(timeEl);
-var secondsLeft = 50;
-
-//set timer
-function setTimer() {
-    // Sets interval in variable
-    var timerInterval = setInterval(function() { 
-        secondsLeft--;
-        timeEl.textContent = secondsLeft;
-      if(secondsLeft === 0) {
-        // Stops execution of action at set interval
-        clearInterval(timerInterval);  
-    }
-  }, 1000);
-}
-
 
 
 //listen for click event to start game
@@ -131,6 +109,18 @@ choiceBtn[3].addEventListener('click', function() {
     question();
 })
 
+//set timer
+function setTimer() {
+    // Sets interval in variable
+    var timerInterval = setInterval(function() { 
+        secondsLeft--;
+        timeEl.textContent = secondsLeft;
+      if(secondsLeft === 0) {
+        // Stops execution of action at set interval
+        clearInterval(timerInterval);  
+    }
+  }, 1000);
+}
 
 function question() {
     if (questionIndex < 5) {
@@ -144,6 +134,5 @@ function question() {
         finalScore.removeAttribute('hidden');
         questionEl.textContent = 'ALL DONE!';
         score.textContent = secondsLeft;
-        clearInterval();
     }
 }
