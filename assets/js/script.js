@@ -115,7 +115,7 @@ function setTimer() {
     var timerInterval = setInterval(function() { 
         secondsLeft--;
         timeEl.textContent = secondsLeft;
-      if(secondsLeft === 0) {
+      if(secondsLeft === 0 || questionIndex === 5) {
         // Stops execution of action at set interval
         clearInterval(timerInterval);  
     }
