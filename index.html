@@ -20,12 +20,19 @@
             <button id="startBtn">Start Quiz</button>
         </div>
         <ol hidden class="container">
-            <li class="box" id="one" data-choice="1"></li>
-            <li class="box" id="two" data-choice="2"></li>
-            <li class="box" id="three" data-choice="3"></li>
-            <li class="box" id="four" data-choice="4"></li>
+            <li class="box" id="one" data-choices="ChoiceOne"></li>
+            <li class="box" id="two" data-choices="ChoiceTwo"></li>
+            <li class="box" id="three" data-choices="ChoiceThree"></li>
+            <li class="box" id="four" data-choices="ChoiceFour"></li>
         </ol>
         <p id="finalScore" hidden>Your final score is: <span id="score"></span></p>
+        <form id="submit-form" method="POST" action="highscores.html" >
+            <div class="input-initials">
+              <label for="initials">Enter initials: </label>
+              <input type="text" name="initials" id="initials"/>
+            </div>
+            <button id="submit">submit</button>
+        </form>
     </main>
     <script src="./assets/js/script.js"></script>
 </body>

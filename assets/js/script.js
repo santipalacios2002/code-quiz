@@ -56,13 +56,31 @@ var quiz = [{
 
 
 //listen for click event to start game
-startQuizBtn.addEventListener('click', function() {
+startQuizBtn.addEventListener('click', function(event) {
+    console.log(event)
     document.getElementById("introduction").hidden = true;
     document.getElementById("startBtn").hidden = true;
     choiceList.removeAttribute('hidden');
     setTimer();
     question();
 })
+
+// for (let index = 0; index < 4; index++) {
+//     choiceBtn[index].addEventListener('click', function(event) {
+//         var element = event.target
+//         console.log(element)
+//         var choosen = element.dataset.choices
+//         console.log('check this ' + quiz[questionIndex].`${choosen}`)
+//         if (quiz[questionIndex].choice == quiz[questionIndex].answer) {
+//             console.log(`correct answer`)
+//             correctAudio.play();
+//         } else {
+//             wrongAudio.play();
+//         }
+//         questionIndex++;
+//         question();
+//     }
+// )}
 
 choiceBtn[0].addEventListener('click', function() {
     console.log('button 1 clicked')
@@ -134,5 +152,6 @@ function question() {
         finalScore.removeAttribute('hidden');
         questionEl.textContent = 'ALL DONE!';
         score.textContent = secondsLeft;
+        document.getElementById("submit-form").style.display="inline-flex";
     }
 }

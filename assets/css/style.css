@@ -45,5 +45,16 @@ ol {
     justify-content: center;
 }
 
+form {
+    justify-content: left;
+    margin-top: 50px;
+    margin-left: -40px;
+    display: none;
+}
+
+.input-initials {
+    margin-right: 10px;
+    
+}
 
 
