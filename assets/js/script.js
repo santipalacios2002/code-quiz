@@ -17,8 +17,7 @@ var correctAudio = new Audio('./assets/audio/correct.mp3');
 var wrongAudio = new Audio('./assets/audio/wrong.mp3');
 var questionIndex = 0; //initializes question index
 var secondsLeft = 50;
-
-var highScores = localStorage.getItem("highscores");
+var finalplayerScores = [];
 
 
 var quiz = [{
@@ -182,9 +181,6 @@ function question() {
         choiceThreeEl.textContent = quiz[questionIndex].choiceThree;
         choiceFourEl.textContent = quiz[questionIndex].choiceFour;
     } else {
-        // choiceList.setAttribute('hidden', true);
-        // finalScore.removeAttribute('hidden');
-        // questionEl.textContent = 'ALL DONE!';
         scoreEl.textContent = secondsLeft - 1;
         setTimeout(function(){ //using setTimeout function
             document.getElementById('answer').style.display ='none'; //hidding the message again after 3 second
@@ -218,7 +214,8 @@ submitBtn.addEventListener("click", function(event) {
     if (initials === "") {
       displayMessage("error", "Initials cannot be blank");
     }  
-      localStorage.setItem("intialsArray", initials);
+      localStorage.setItem("intials", initials);
+      localStorage.setItem("score", secondsLeft);
       window.location.replace("./highscores.html")
   });
 
