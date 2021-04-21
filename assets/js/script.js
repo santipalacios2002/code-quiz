@@ -13,6 +13,7 @@ var choiceList = document.querySelector('.container');
 var finalScore = document.querySelector('#finalScore');
 var scoreEl = document.querySelector('#score');
 var answerEl = document.querySelector('#answer');
+var messageDiv = document.querySelector('#msg');
 var correctAudio = new Audio('./assets/audio/correct.mp3');
 var wrongAudio = new Audio('./assets/audio/wrong.mp3');
 var questionIndex = 0; //initializes question index
@@ -207,16 +208,31 @@ function fadeIn() {
   }, 50);
 }
 
+function displayMessage(type, message) {
+    messageDiv.textContent = message;
+    messageDiv.setAttribute("class", type);
+  }
+
 submitBtn.addEventListener("click", function(event) {
     event.preventDefault();
     var initials = document.querySelector("#initials").value;
     console.log(initials);
     if (initials === "") {
       displayMessage("error", "Initials cannot be blank");
+      return;
     }  
-      localStorage.setItem("intials", initials);
-      localStorage.setItem("score", secondsLeft);
-      window.location.replace("./highscores.html")
+    user = [{
+        userInitials: initials.trim(),
+        userScore: secondsLeft
+    }]
+    if (finalplayerScores.length === 0) {
+        finalplayerScores = user
+    } else {
+        var temp = JSON.parse(localStorage.getItem('user'))
+        finalplayerScores = finalplayerScores.push(temp[0]);
+    }
+    localStorage.setItem("finalplayerScores", JSON.stringify(user));
+    window.location.replace("./highscores.html")
   });
 
 viewHighScoresBtn.addEventListener("click", function(event) {

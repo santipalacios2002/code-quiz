@@ -25,7 +25,7 @@ p {
     font-size: 20px;
 }
 
-#startBtn, .Btn{
+#startBtn, .Btn {
     margin: 20px auto;
     color: white;
     background-color: purple;
@@ -66,4 +66,10 @@ form {
     justify-content: center;
 }
 
+#msg {
+    color: red;
+    font-size: 20px;
+    justify-content: center;
+    padding-top: 10px;
+}
 
