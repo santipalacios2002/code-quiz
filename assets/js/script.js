@@ -3,6 +3,7 @@ var timeEl = document.querySelector('#seconds');
 var startQuizBtn = document.querySelector('#start-quiz');
 var submitBtn = document.querySelector('#submit');
 var choiceBtn = document.querySelectorAll('.box');
+var viewHighScoresBtn = document.querySelector('#viewHighScoresBtn');
 var questionEl = document.querySelector('#question');
 var choiceOneEl = document.querySelector('#one');
 var choiceTwoEl = document.querySelector('#two');
@@ -61,7 +62,6 @@ var quiz = [{
 
 //listen for click event to start game
 startQuizBtn.addEventListener('click', function(event) {
-    console.log(event)
     document.getElementById("introduction").hidden = true;
     document.getElementById("startBtn").hidden = true;
     choiceList.removeAttribute('hidden');
@@ -76,11 +76,7 @@ startQuizBtn.addEventListener('click', function(event) {
 for (let index = 0; index < 4; index++) {
     choiceBtn[index].addEventListener('click', function(event) {
         var element = event.target
-        console.log(element)
         var chosen = element.dataset.choices
-        // console.log('check this ' + quiz[questionIndex].`${chosen}`)
-        console.log("chosen: ", chosen)
-        console.log("quiz: ", quiz[questionIndex])
         if (quiz[questionIndex][chosen] == quiz[questionIndex].answer) {
             console.log(`correct answer`)
             answerEl.textContent = "Correct!";
@@ -186,11 +182,18 @@ function question() {
         choiceThreeEl.textContent = quiz[questionIndex].choiceThree;
         choiceFourEl.textContent = quiz[questionIndex].choiceFour;
     } else {
-        choiceList.setAttribute('hidden', true);
-        finalScore.removeAttribute('hidden');
-        questionEl.textContent = 'ALL DONE!';
+        // choiceList.setAttribute('hidden', true);
+        // finalScore.removeAttribute('hidden');
+        // questionEl.textContent = 'ALL DONE!';
         scoreEl.textContent = secondsLeft - 1;
-        document.getElementById("submit-form").style.display="inline-flex";
+        setTimeout(function(){ //using setTimeout function
+            document.getElementById('answer').style.display ='none'; //hidding the message again after 3 second
+            choiceList.setAttribute('hidden', true);
+            finalScore.removeAttribute('hidden');
+            questionEl.textContent = 'ALL DONE!';
+            document.getElementById("submit-form").style.display="inline-flex";
+          }
+          ,2000); 
     }
 }
 
@@ -218,3 +221,9 @@ submitBtn.addEventListener("click", function(event) {
       localStorage.setItem("intialsArray", initials);
       window.location.replace("./highscores.html")
   });
+
+viewHighScoresBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log(event)
+    window.location.replace("./highscores.html")
+});
