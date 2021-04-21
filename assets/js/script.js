@@ -1,6 +1,7 @@
 //Select time timer element
 var timeEl = document.querySelector('#seconds');
 var startQuizBtn = document.querySelector('#start-quiz');
+var submitBtn = document.querySelector('#submit');
 var choiceBtn = document.querySelectorAll('.box');
 var questionEl = document.querySelector('#question');
 var choiceOneEl = document.querySelector('#one');
@@ -9,11 +10,14 @@ var choiceThreeEl = document.querySelector('#three');
 var choiceFourEl = document.querySelector('#four');
 var choiceList = document.querySelector('.container');
 var finalScore = document.querySelector('#finalScore');
-var score =document.querySelector('#score');
+var scoreEl = document.querySelector('#score');
+var answerEl = document.querySelector('#answer');
 var correctAudio = new Audio('./assets/audio/correct.mp3');
 var wrongAudio = new Audio('./assets/audio/wrong.mp3');
 var questionIndex = 0; //initializes question index
 var secondsLeft = 50;
+
+var highScores = localStorage.getItem("highscores");
 
 
 var quiz = [{
@@ -65,67 +69,101 @@ startQuizBtn.addEventListener('click', function(event) {
     question();
 })
 
-// for (let index = 0; index < 4; index++) {
-//     choiceBtn[index].addEventListener('click', function(event) {
-//         var element = event.target
-//         console.log(element)
-//         var choosen = element.dataset.choices
-//         console.log('check this ' + quiz[questionIndex].`${choosen}`)
-//         if (quiz[questionIndex].choice == quiz[questionIndex].answer) {
-//             console.log(`correct answer`)
-//             correctAudio.play();
-//         } else {
-//             wrongAudio.play();
-//         }
-//         questionIndex++;
-//         question();
-//     }
-// )}
+//research object.keys(add my object here).map  - object mapping and key-value pairs
 
-choiceBtn[0].addEventListener('click', function() {
-    console.log('button 1 clicked')
-    if (quiz[questionIndex].choiceOne == quiz[questionIndex].answer) {
-        console.log(`correct answer`)
-        correctAudio.play();
-    } else {
-        wrongAudio.play();
+// ask in class how can I use variable as an attribute
+
+for (let index = 0; index < 4; index++) {
+    choiceBtn[index].addEventListener('click', function(event) {
+        var element = event.target
+        console.log(element)
+        var chosen = element.dataset.choices
+        // console.log('check this ' + quiz[questionIndex].`${chosen}`)
+        console.log("chosen: ", chosen)
+        console.log("quiz: ", quiz[questionIndex])
+        if (quiz[questionIndex][chosen] == quiz[questionIndex].answer) {
+            console.log(`correct answer`)
+            answerEl.textContent = "Correct!";
+            fadeIn();
+            correctAudio.play();
+        } else {
+            secondsLeft = secondsLeft - 10;
+            answerEl.textContent = "Wrong!";
+            fadeIn();
+            wrongAudio.play();
+        }
+        questionIndex++;
+        question();
     }
-    questionIndex++;
-    question();
-})
-choiceBtn[1].addEventListener('click', function() {
-    console.log('button 2 clicked')
-    if (quiz[questionIndex].choiceTwo == quiz[questionIndex].answer) {
-        console.log(`correct answer`)
-        correctAudio.play();
-    } else {
-        wrongAudio.play();
-    }
-    questionIndex++;
-    question();
-})
-choiceBtn[2].addEventListener('click', function() {
-    console.log('button 3 clicked')
-    if (quiz[questionIndex].choiceThree == quiz[questionIndex].answer) {
-        console.log(`correct answer`)
-        correctAudio.play();
-    } else {
-        wrongAudio.play();
-    }
-    questionIndex++;
-    question();
-})
-choiceBtn[3].addEventListener('click', function() {
-    console.log('button 4 clicked')
-    if (quiz[questionIndex].choiceFour == quiz[questionIndex].answer) {
-        console.log(`correct answer`)
-        correctAudio.play();
-    } else {
-        wrongAudio.play();
-    }
-    questionIndex++;
-    question();
-})
+)}
+
+
+//delete in the future
+
+// choiceBtn[0].addEventListener('click', function() {
+//     console.log('button 1 clicked')
+//     if (quiz[questionIndex].choiceOne == quiz[questionIndex].answer) {
+//         console.log(`correct answer`)
+//         answerEl.textContent = "Correct!";
+//         fadeIn();
+//         correctAudio.play();
+//     } else {
+//         secondsLeft = secondsLeft - 10;
+//         answerEl.textContent = "Wrong!";
+//         fadeIn();
+//         wrongAudio.play();
+//     }
+//     questionIndex++;
+//     question();
+// })
+// choiceBtn[1].addEventListener('click', function() {
+//     console.log('button 2 clicked')
+//     if (quiz[questionIndex].choiceTwo == quiz[questionIndex].answer) {
+//         console.log(`correct answer`)
+//         answerEl.textContent = "Correct!";
+//         fadeIn();
+//         correctAudio.play();
+//     } else {
+//         secondsLeft = secondsLeft - 10;
+//         answerEl.textContent = "Wrong!";
+//         fadeIn();
+//         wrongAudio.play();
+//     }
+//     questionIndex++;
+//     question();
+// })
+// choiceBtn[2].addEventListener('click', function() {
+//     console.log('button 3 clicked')
+//     if (quiz[questionIndex].choiceThree == quiz[questionIndex].answer) {
+//         console.log(`correct answer`)
+//         answerEl.textContent = "Correct!";
+//         fadeIn();
+//         correctAudio.play();
+//     } else {
+//         secondsLeft = secondsLeft - 10;
+//         answerEl.textContent = "Wrong!";
+//         fadeIn();
+//         wrongAudio.play();
+//     }
+//     questionIndex++;
+//     question();
+// })
+// choiceBtn[3].addEventListener('click', function() {
+//     console.log('button 4 clicked')
+//     if (quiz[questionIndex].choiceFour == quiz[questionIndex].answer) {
+//         console.log(`correct answer`)
+//         answerEl.textContent = "Correct!";
+//         fadeIn();
+//         correctAudio.play();
+//     } else {
+//         secondsLeft = secondsLeft - 10;
+//         answerEl.textContent = "Wrong!";
+//         fadeIn();
+//         wrongAudio.play();
+//     }
+//     questionIndex++;
+//     question();
+// })
 
 //set timer
 function setTimer() {
@@ -151,7 +189,32 @@ function question() {
         choiceList.setAttribute('hidden', true);
         finalScore.removeAttribute('hidden');
         questionEl.textContent = 'ALL DONE!';
-        score.textContent = secondsLeft;
+        scoreEl.textContent = secondsLeft - 1;
         document.getElementById("submit-form").style.display="inline-flex";
     }
 }
+
+function fadeIn() {
+    var fade = document.getElementById("answer")
+    var opacity = 0;
+    // Sets interval in variabl
+    var fadeInterval = setInterval(function() { 
+      if(opacity < 1) {
+          opacity = opacity + 0.1;
+          fade.style.opacity = opacity;    
+        } else {
+            clearInterval(fadeInterval);
+        }
+  }, 50);
+}
+
+submitBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    var initials = document.querySelector("#initials").value;
+    console.log(initials);
+    if (initials === "") {
+      displayMessage("error", "Initials cannot be blank");
+    }  
+      localStorage.setItem("intialsArray", initials);
+      window.location.replace("./highscores.html")
+  });

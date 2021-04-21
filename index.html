@@ -9,30 +9,32 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    <header id="header" data-state="visible">
+    <header id="header">
         <p>View High Scores</p>
         <p id="timer">Time left: <span id="seconds">0</span></p>
     </header>
     <main>
         <h2 id="question">Code Quiz Challenge</h2>
-        <p id="introduction" data-state="visible">Try to answer the following code-related questions within the timelimit. Keep in mind that incorrect answers will penalized your score/time by 10s</p>
+        <p id="introduction">Try to answer the following code-related questions within the timelimit. Keep in mind that incorrect answers will penalized your score/time by 10s</p>
         <div id="start-quiz">
             <button id="startBtn">Start Quiz</button>
         </div>
         <ol hidden class="container">
-            <li class="box" id="one" data-choices="ChoiceOne"></li>
-            <li class="box" id="two" data-choices="ChoiceTwo"></li>
-            <li class="box" id="three" data-choices="ChoiceThree"></li>
-            <li class="box" id="four" data-choices="ChoiceFour"></li>
+            <li class="box" id="one" data-choices="choiceOne"></li>
+            <li class="box" id="two" data-choices="choiceTwo"></li>
+            <li class="box" id="three" data-choices="choiceThree"></li>
+            <li class="box" id="four" data-choices="choiceFour"></li>
         </ol>
         <p id="finalScore" hidden>Your final score is: <span id="score"></span></p>
-        <form id="submit-form" method="POST" action="highscores.html" >
+        <form  id="submit-form">
             <div class="input-initials">
-              <label for="initials">Enter initials: </label>
-              <input type="text" name="initials" id="initials"/>
+                <label for="initials">Enter initials: </label>
+                <input type="text" name="initials" id="initials"/>
             </div>
+            <!--add the onclick for this button-->
             <button id="submit">submit</button>
         </form>
+        <div id="answer" style="opacity:0;"></div>
     </main>
     <script src="./assets/js/script.js"></script>
 </body>
