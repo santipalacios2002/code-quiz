@@ -25,20 +25,6 @@ for (let index = 0; index < finalplayerScores.length; index++) {
 }
 
 
-
-// var points = [
-//     {
-//     userInitials:"LT",
-//     userScore:26},
-//     {
-//     userInitials:"SP",
-//     userScore:15},
-//     {
-//     userInitials:"PP",
-//     userScore:24
-//         }];
-
-
 function compare( a, b ) {
     if ( a.userScore < b.userScore ){
         return 1;
