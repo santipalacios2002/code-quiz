@@ -2,6 +2,19 @@ var goBackBtn = document.querySelector("#goBackBtn")
 var clearBtn = document.querySelector('#clearBtn')
 var finalplayerScores = [];
 
+
+finalplayerScores = JSON.parse(localStorage.getItem('scores'));
+finalplayerScores.sort(compare);
+console.log('this is the final scores sorted: ', finalplayerScores)
+
+for (let index = 0; index < finalplayerScores.length; index++) {
+    var x = document.createElement("li");
+    var t = document.createTextNode(`${index + 1}. ${finalplayerScores[index].userInitials.toUpperCase()} - ${finalplayerScores[index].userScore}`);
+    x.appendChild(t);
+    document.getElementById("top-scores").appendChild(x);
+    x.className += "userList";
+}
+
 goBackBtn.addEventListener("click", function(event) {
     event.preventDefault();
     console.log(event)
@@ -13,18 +26,6 @@ clearBtn.addEventListener("click", function() {
     document.getElementById('top-scores').innerHTML = ""
 })
 
-finalplayerScores = JSON.parse(localStorage.getItem('scores'));
-finalplayerScores.sort(compare);
-console.log('this is the final scores sorted: ', finalplayerScores)
-
-for (let index = 0; index < finalplayerScores.length; index++) {
-    var x = document.createElement("li");
-    var t = document.createTextNode(`${finalplayerScores[index].userInitials.toUpperCase()} - ${finalplayerScores[index].userScore}`);
-    x.appendChild(t);
-    document.getElementById("top-scores").appendChild(x);
-}
-
-
 function compare( a, b ) {
     if ( a.userScore < b.userScore ){
         return 1;
@@ -33,6 +34,6 @@ function compare( a, b ) {
         return -1;
     }
     return 0;
-    }
+}
 
 

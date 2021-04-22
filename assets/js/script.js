@@ -1,4 +1,7 @@
-//Select time timer element
+//=================================================================================
+//===========================  Variable initialization  ===========================
+//=================================================================================
+
 var timeEl = document.querySelector('#seconds');
 var startQuizBtn = document.querySelector('#start-quiz');
 var submitBtn = document.querySelector('#submit');
@@ -16,11 +19,9 @@ var answerEl = document.querySelector('#answer');
 var messageDiv = document.querySelector('#msg');
 var correctAudio = new Audio('./assets/audio/correct.mp3');
 var wrongAudio = new Audio('./assets/audio/wrong.mp3');
-var questionIndex = 0; //initializes question index
+var questionIndex = 0; 
 var secondsLeft = 50;
 var scoresToLocal = [];
-
-
 var quiz = [{
     question: 'Quito is the capital of which country?',
     answer: 'Ecuador',
@@ -58,33 +59,24 @@ var quiz = [{
     choiceFour: 'Europe' 
 }    
 ]
+//=================================================================================
+//=================================================================================
+//=================================================================================
 
-console.log('initial store local ', scoresToLocal)
-//listen for click event to start game
-startQuizBtn.addEventListener('click', function(event) {
-    document.getElementById("introduction").hidden = true;
-    document.getElementById("startBtn").hidden = true;
-    choiceList.removeAttribute('hidden');
-    setTimer();
-    question();
-})
 
-//research object.keys(add my object here).map  - object mapping and key-value pairs
 
-// ask in class how can I use variable as an attribute
-
-for (var index = 0; index < 4; index++) {
+for (var index = 0; index < 4; index++) {                                   //loops through questions
     choiceBtn[index].addEventListener('click', function(event) {
         var element = event.target
         var chosen = element.dataset.choices
-        if (quiz[questionIndex][chosen] == quiz[questionIndex].answer) {
+        if (quiz[questionIndex][chosen] == quiz[questionIndex].answer) {    //logic for correct answer
             console.log(`correct answer`)
             answerEl.textContent = "Correct!";
             fadeIn();
             wrongAudio.pause();
             correctAudio.play();
-        } else {
-            secondsLeft = secondsLeft - 10;
+        } else {                                                            //logic for wrong answer
+            secondsLeft = secondsLeft - 10;                                 //penalized with 10 seconds
             answerEl.textContent = "Wrong!";
             fadeIn();
             correctAudio.pause();
@@ -93,20 +85,29 @@ for (var index = 0; index < 4; index++) {
         questionIndex++;
         question();
     }
-)}
+    )}
+    
 
+//===================================================================
+//===========================  Functions  ===========================
+//===================================================================
 
-//set timer
-function setTimer() {
-    // Sets interval in variable
+function setTimer() {                                                       //sets timer
     var timerInterval = setInterval(function() { 
         secondsLeft--;
         timeEl.textContent = secondsLeft;
-      if(secondsLeft === 0 || questionIndex === 5) {
-        // Stops execution of action at set interval
-        clearInterval(timerInterval);  
-    }
-  }, 1000);
+        if(secondsLeft === 0 || questionIndex === 5) {                      //logic to prevent from going over number of questions or time
+            if (timeEl.textContent < 0) {                                   //logic prevents time from showing negative numbers
+                timeEl.textContent = 0
+            }
+            document.getElementById('answer').style.display ='none';        //hidding the message again after 3 second
+            choiceList.setAttribute('hidden', true);
+            finalScore.removeAttribute('hidden');
+            questionEl.textContent = 'ALL DONE!';
+            document.getElementById("submit-form").style.display="inline-flex";
+            clearInterval(timerInterval);  
+        }
+    }, 1000);
 }
 
 function question() {
@@ -118,14 +119,14 @@ function question() {
         choiceFourEl.textContent = quiz[questionIndex].choiceFour;
     } else {
         scoreEl.textContent = secondsLeft - 1;
-        setTimeout(function(){ //using setTimeout function
-            document.getElementById('answer').style.display ='none'; //hidding the message again after 3 second
-            choiceList.setAttribute('hidden', true);
-            finalScore.removeAttribute('hidden');
-            questionEl.textContent = 'ALL DONE!';
-            document.getElementById("submit-form").style.display="inline-flex";
-          }
-          ,2000); 
+        if (scoreEl.textContent < 0) {    //logic prevents score from showing negative numbers
+            scoreEl.textContent = 0
+        }
+        document.getElementById('answer').style.display ='none'; //hidding the message again after 3 second
+        choiceList.setAttribute('hidden', true);
+        finalScore.removeAttribute('hidden');
+        questionEl.textContent = 'ALL DONE!';
+        document.getElementById("submit-form").style.display="inline-flex";
     }
 }
 
@@ -134,27 +135,47 @@ function fadeIn() {
     var opacity = 0;
     // Sets interval in variabl
     var fadeInterval = setInterval(function() { 
-      if(opacity < 1) {
-          opacity = opacity + 0.1;
-          fade.style.opacity = opacity;    
+        if(opacity < 1) {
+            opacity = opacity + 0.1;
+            fade.style.opacity = opacity;    
         } else {
             clearInterval(fadeInterval);
         }
-  }, 50);
+    }, 50);
 }
 
 function displayMessage(type, message) {
     messageDiv.textContent = message;
     messageDiv.setAttribute("class", type);
-  }
+}
+
+
+//===================================================================
+//===================================================================
+//===================================================================
+
+
+
+//=========================================================================
+//===========================  Event Listeners  ===========================
+//=========================================================================
+
+
+startQuizBtn.addEventListener('click', function(event) {                    //listen for click event to start game
+    document.getElementById("introduction").hidden = true;
+    document.getElementById("startBtn").hidden = true;
+    choiceList.removeAttribute('hidden');
+    setTimer();
+    question();
+})
 
 submitBtn.addEventListener("click", function(event) {
     event.preventDefault();
     var initials = document.querySelector("#initials").value;
     console.log(initials);
     if (initials === "") {
-      displayMessage("error", "Initials cannot be blank");
-      return;
+        displayMessage("error", "Initials cannot be blank");
+        return;
     }
     var checkStorage = JSON.parse(localStorage.getItem('scores'));
     if (checkStorage === null) {
@@ -172,7 +193,7 @@ submitBtn.addEventListener("click", function(event) {
     console.log(scoresToLocal)
     localStorage.setItem("scores", JSON.stringify(scoresToLocal));
     window.location.replace("./highscores.html")
-  });
+});
 
 viewHighScoresBtn.addEventListener("click", function(event) {
     event.preventDefault();

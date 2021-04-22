@@ -31,6 +31,12 @@ p {
     background-color: purple;
     padding: 5px 10px;
     border-radius: 5px 5px 5px 5px;
+    transition-property: background-color;
+    transition-duration: 1.5s;
+}
+
+#startBtn:hover, .Btn:hover {
+    background-color: black;
 }
 
 .box {
@@ -40,11 +46,27 @@ p {
     padding: 10px;
     border-radius: 5px;
     display: inline-block;
+    transition-property: background-color;
+    transition-duration: 1.5s;
 }
+
+.box:hover {
+    background-color: black;
+}
+
 ol {
     justify-content: center;
 }
 
+ul {
+    width: 200px;
+    text-align: left;
+    margin: 20px 46% 0 46%;
+}
+
+.userList {
+    padding-top: 10px;
+}
 form {
     justify-content: left;
     margin-top: 50px;
@@ -73,3 +95,6 @@ form {
     padding-top: 10px;
 }
 
+.top-scores {
+    text-align: left;
+}
