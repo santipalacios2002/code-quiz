@@ -133,7 +133,6 @@ function question() {
 function fadeIn() {
     var fade = document.getElementById("answer")
     var opacity = 0;
-    // Sets interval in variabl
     var fadeInterval = setInterval(function() { 
         if(opacity < 1) {
             opacity = opacity + 0.1;

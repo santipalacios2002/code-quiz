@@ -14,7 +14,7 @@ main div {
     display: flex;
 }
 
-h2 {
+h1 {
     font-size: 35px;
     padding: 20px 0 30px 0;
     text-align: center;
@@ -37,6 +37,7 @@ p {
 
 #startBtn:hover, .Btn:hover {
     background-color: black;
+    cursor: pointer;
 }
 
 .box {
@@ -48,6 +49,7 @@ p {
     display: inline-block;
     transition-property: background-color;
     transition-duration: 1.5s;
+    cursor: pointer;
 }
 
 .box:hover {
@@ -58,14 +60,12 @@ ol {
     justify-content: center;
 }
 
-ul {
-    width: 200px;
-    text-align: left;
-    margin: 20px 46% 0 46%;
-}
-
 .userList {
-    padding-top: 10px;
+    padding: 10px 0;
+    font-size: 1.5em;
+    background-color: lightblue;
+    margin-top: 10px;
+    width: 200px;
 }
 form {
     justify-content: left;
@@ -95,6 +95,22 @@ form {
     padding-top: 10px;
 }
 
-.top-scores {
+#top-scores {
     text-align: left;
+    width: 200px;
+    margin: 0 auto;
+}
+
+#viewHighScoresBtn {
+    text-decoration: underline;
+    color: purple;
+}
+
+#viewHighScoresBtn:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+#highscore-title {
+    font-size: 4em;;
 }
