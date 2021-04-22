@@ -1,15 +1,10 @@
-#header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-}
-
 main {
     height: 200px;
     width: 50%;
     margin: 0 auto;
     text-align: center;
 }
+
 main div {
     display: flex;
 }
@@ -25,6 +20,23 @@ p {
     font-size: 20px;
 }
 
+ol {
+    justify-content: center;
+}
+
+form {
+    justify-content: left;
+    margin-top: 50px;
+    margin-left: -40px;
+    display: none;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
 #startBtn, .Btn {
     margin: 20px auto;
     color: white;
@@ -38,45 +50,6 @@ p {
 #startBtn:hover, .Btn:hover {
     background-color: black;
     cursor: pointer;
-}
-
-.box {
-    background-color: purple;
-    color: white;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    display: inline-block;
-    transition-property: background-color;
-    transition-duration: 1.5s;
-    cursor: pointer;
-}
-
-.box:hover {
-    background-color: black;
-}
-
-ol {
-    justify-content: center;
-}
-
-.userList {
-    padding: 10px 0;
-    font-size: 1.5em;
-    background-color: lightblue;
-    margin-top: 10px;
-    width: 200px;
-}
-form {
-    justify-content: left;
-    margin-top: 50px;
-    margin-left: -40px;
-    display: none;
-}
-
-.input-initials {
-    margin-right: 10px;
-    
 }
 
 #answer {
@@ -113,4 +86,33 @@ form {
 
 #highscore-title {
     font-size: 4em;;
+}
+
+.box {
+    background-color: purple;
+    color: white;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    transition-property: background-color;
+    transition-duration: 1.5s;
+    cursor: pointer;
+}
+
+.box:hover {
+    background-color: black;
+}
+
+.userList {
+    padding: 10px 0;
+    font-size: 1.5em;
+    background-color: lightblue;
+    margin-top: 10px;
+    width: 200px;
+}
+
+.input-initials {
+    margin-right: 10px;
+    
 }

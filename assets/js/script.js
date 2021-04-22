@@ -110,19 +110,19 @@ function setTimer() {                                                       //se
     }, 1000);
 }
 
-function question() {
-    if (questionIndex < 5) {
+function question() {                                                       //builds the question and choices
+    if (questionIndex < 5) {                                                //cycles through the 5 questions
         questionEl.textContent = quiz[questionIndex].question;
         choiceOneEl.textContent = quiz[questionIndex].choiceOne;
         choiceTwoEl.textContent = quiz[questionIndex].choiceTwo;
         choiceThreeEl.textContent = quiz[questionIndex].choiceThree;
         choiceFourEl.textContent = quiz[questionIndex].choiceFour;
-    } else {
+    } else {                                                                //logic once questions end
         scoreEl.textContent = secondsLeft - 1;
-        if (scoreEl.textContent < 0) {    //logic prevents score from showing negative numbers
+        if (scoreEl.textContent < 0) {                                      //logic prevents score from showing negative numbers
             scoreEl.textContent = 0
         }
-        document.getElementById('answer').style.display ='none'; //hidding the message again after 3 second
+        document.getElementById('answer').style.display ='none';            //hidding the message and provide the outcome of the quiz
         choiceList.setAttribute('hidden', true);
         finalScore.removeAttribute('hidden');
         questionEl.textContent = 'ALL DONE!';
@@ -130,7 +130,35 @@ function question() {
     }
 }
 
-function fadeIn() {
+function buildStorageArray() {                                              //builds the array that will go to local storage as an object
+
+    var initials = document.querySelector("#initials").value;
+    console.log(initials);
+    if (initials === "") {                                                  //sets the message for error
+        displayMessage("error", "Initials cannot be blank");
+        return;
+    }
+    var checkStorage = JSON.parse(localStorage.getItem('scores'));          //parses through local storage scores key
+    if (secondsLeft < 0) {                                                  //ensures that the score is not less than 0
+        secondsLeft = 0;
+    }
+    if (checkStorage === null) {                                            //if key is empty in local storage, build the array with the first object
+        scoresToLocal = [{
+            userInitials: initials.trim(),
+            userScore: secondsLeft
+        }]
+    } else {                                                                //otherwise concatenate it with the existing value
+        console.log('thi ran')
+        scoresToLocal = checkStorage.concat([{
+            userInitials: initials.trim(),
+            userScore: secondsLeft
+        }])
+    }
+    console.log(scoresToLocal)
+    localStorage.setItem("scores", JSON.stringify(scoresToLocal));          //stores to local storage
+}
+
+function fadeIn() {                                                         //to fade in the CORRECT! or WRONG! banner under the questions choices
     var fade = document.getElementById("answer")
     var opacity = 0;
     var fadeInterval = setInterval(function() { 
@@ -143,7 +171,7 @@ function fadeIn() {
     }, 50);
 }
 
-function displayMessage(type, message) {
+function displayMessage(type, message) {                                    //error if they don't enter initials
     messageDiv.textContent = message;
     messageDiv.setAttribute("class", type);
 }
@@ -168,34 +196,15 @@ startQuizBtn.addEventListener('click', function(event) {                    //li
     question();
 })
 
-submitBtn.addEventListener("click", function(event) {
-    event.preventDefault();
-    var initials = document.querySelector("#initials").value;
-    console.log(initials);
-    if (initials === "") {
-        displayMessage("error", "Initials cannot be blank");
-        return;
-    }
-    var checkStorage = JSON.parse(localStorage.getItem('scores'));
-    if (checkStorage === null) {
-        scoresToLocal = [{
-            userInitials: initials.trim(),
-            userScore: secondsLeft
-        }]
-    } else {
-        console.log('thi ran')
-        scoresToLocal = checkStorage.concat([{
-            userInitials: initials.trim(),
-            userScore: secondsLeft
-        }])
-    }
-    console.log(scoresToLocal)
-    localStorage.setItem("scores", JSON.stringify(scoresToLocal));
-    window.location.replace("./highscores.html")
+submitBtn.addEventListener("click", function(event) {                       //listens to the submit button after quiz ends
+    event.preventDefault();                                                 //prevents default of appending the submission into the actual page URL
+    buildStorageArray();                                                    
+    window.location.replace("./highscores.html")                            //redirects to highscores page
 });
 
-viewHighScoresBtn.addEventListener("click", function(event) {
+viewHighScoresBtn.addEventListener("click", function(event) {               //button on index page to redirect to highscores page
     event.preventDefault();
     console.log(event)
     window.location.replace("./highscores.html")
 });
+
