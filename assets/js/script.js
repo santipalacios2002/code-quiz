@@ -70,7 +70,7 @@ for (var index = 0; index < 4; index++) {                                   //lo
         var element = event.target
         var chosen = element.dataset.choices
         if (quiz[questionIndex][chosen] == quiz[questionIndex].answer) {    //logic for correct answer
-            console.log(`correct answer`)
+            // console.log(`correct answer`)
             answerEl.textContent = "Correct!";
             fadeIn();
             wrongAudio.pause();
@@ -133,7 +133,7 @@ function question() {                                                       //bu
 function buildStorageArray() {                                              //builds the array that will go to local storage as an object
 
     var initials = document.querySelector("#initials").value;
-    console.log(initials);
+    // console.log(initials);
     if (initials === "") {                                                  //sets the message for error
         displayMessage("error", "Initials cannot be blank");
         return;
@@ -148,13 +148,13 @@ function buildStorageArray() {                                              //bu
             userScore: secondsLeft
         }]
     } else {                                                                //otherwise concatenate it with the existing value
-        console.log('thi ran')
+        // console.log('this ran')
         scoresToLocal = checkStorage.concat([{
             userInitials: initials.trim(),
             userScore: secondsLeft
         }])
     }
-    console.log(scoresToLocal)
+    // console.log(scoresToLocal)
     localStorage.setItem("scores", JSON.stringify(scoresToLocal));          //stores to local storage
 }
 
@@ -204,7 +204,7 @@ submitBtn.addEventListener("click", function(event) {                       //li
 
 viewHighScoresBtn.addEventListener("click", function(event) {               //button on index page to redirect to highscores page
     event.preventDefault();
-    console.log(event)
+    // console.log(event)
     window.location.replace("./highscores.html")
 });
 
