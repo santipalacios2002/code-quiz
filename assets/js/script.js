@@ -86,7 +86,8 @@ for (var index = 0; index < 4; index++) {                                   //lo
         question();
     }
     )}
-    
+  
+
 
 //===================================================================
 //===========================  Functions  ===========================
@@ -97,10 +98,11 @@ function setTimer() {                                                       //se
         secondsLeft--;
         timeEl.textContent = secondsLeft;
         if(secondsLeft === 0 || questionIndex === 5) {                      //logic to prevent from going over number of questions or time
-            if (timeEl.textContent < 0) {                                   //logic prevents time from showing negative numbers
+            if (timeEl.textContent <= 0) {                                   //logic prevents time from showing negative numbers
                 timeEl.textContent = 0
+                scoreEl.textContent = 0
             }
-            document.getElementById('answer').style.display ='none';        //hidding the message again after 3 second
+            document.getElementById('answer').style.display ='none';        
             choiceList.setAttribute('hidden', true);
             finalScore.removeAttribute('hidden');
             questionEl.textContent = 'ALL DONE!';
@@ -194,6 +196,9 @@ startQuizBtn.addEventListener('click', function(event) {                    //li
     choiceList.removeAttribute('hidden');
     setTimer();
     question();
+    if(secondsLeft === 0) {                   
+        timeEl.textContent = '0'
+    }
 })
 
 submitBtn.addEventListener("click", function(event) {                       //listens to the submit button after quiz ends
